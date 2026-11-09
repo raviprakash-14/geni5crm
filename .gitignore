@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Node.js / Next.js
+node_modules/
+.next/
+out/
+.vercel/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+
+# Local database files and exports
+*.dump
+*.sql.gz
+*.sqlite3
+*.db
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
