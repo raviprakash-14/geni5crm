@@ -18,7 +18,18 @@ class Base(DeclarativeBase):
     pass
 
 
-engine = create_engine(DATABASE_URL, pool_pre_ping=True)
+engine_options = {"pool_pre_ping": True}
+
+if os.getenv("VERCEL") == "1":
+    # Keep each serverless instance's connection footprint small. Supabase's
+    # transaction pooler requires psycopg's automatic prepared statements off.
+    engine_options.update(
+        pool_size=1,
+        max_overflow=0,
+        connect_args={"prepare_threshold": None},
+    )
+
+engine = create_engine(DATABASE_URL, **engine_options)
 
 SessionLocal = sessionmaker(
     bind=engine,
