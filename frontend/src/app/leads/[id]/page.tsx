@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -56,7 +56,7 @@ type Message = {
   created_at: string;
 };
 
-export default function LeadDetailsPage() {
+function LeadDetailsContent() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
   const leadId = Number(params.id);
@@ -791,5 +791,17 @@ setCurrentUserId(Number(me.id));
         </div>
       </div>
     </main>
+  );
+}
+
+export default function LeadDetailsPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="p-6 text-slate-500">Loading lead details…</main>
+      }
+    >
+      <LeadDetailsContent />
+    </Suspense>
   );
 }
